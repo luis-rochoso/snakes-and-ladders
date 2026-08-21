@@ -9,6 +9,9 @@ class Board {
 	bool climbedUp = false;
 
 public:
+	void init();
+	void shutdown();
+
 	void update();
 	void render();
 	void play();
