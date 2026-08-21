@@ -3,16 +3,18 @@ class Tile {
 
 public:
 
+	Tile() {}
+
 	Tile(int p, int s, int l) {
 		position = p;
 		snake = s;
 		ladder = l;
 	}
 
-	bool hasSnake() {
-		return p != s;
+	int getSnake() {
+		return snake;
 	}
-	bool hasLadder() {
-		return p != l;
+	int getLadder() {
+		return ladder;
 	}
 };

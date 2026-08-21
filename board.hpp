@@ -4,10 +4,20 @@ class Board {
 	int playerPosition = 0;
 	Tile boardTiles[101];
 
+	int lastDieRoll = 0;
+	bool slidDown = false;
+	bool climbedUp = false;
+
 public:
+	void update();
+	void render();
+	void play();
+
     void move();
-	void slide();
-	void climb();
+	bool slide();
+	bool climb();
+
+	bool hasEnded() {return playerPosition == 100;} //!< Game ends when the 100th tile is reached
 
 	Board() {
 		for (int i = 0; i < 101; ++i) {
@@ -18,7 +28,7 @@ public:
 				break;
 
 			case 4:
-				boardTiles[i] = Tile(i+1, i+1, 14);
+				boardTiles[i] = Tile(i, i, 14);
 				break;
 
 			case 9:
@@ -95,4 +105,4 @@ public:
 			}
 		}
 	}
-}
+};
