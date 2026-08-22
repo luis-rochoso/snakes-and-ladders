@@ -1,4 +1,5 @@
 #include "raylib.h"
+#include <iostream>
 
 void makeWindow() {
     InitWindow(800, 600, "Snakes & Ladders");
@@ -7,7 +8,7 @@ void makeWindow() {
 
 void drawBoard() {
     BeginDrawing();
-        ClearBackground(BLACK); // Black sidescreen
+        ClearBackground(BROWN); // Black sidescreen
         DrawRectangle(0, 0, 600, 600, RAYWHITE); // White border
         DrawRectangle(5, 5, 590, 590, RED); // Red squares
 
@@ -52,7 +53,7 @@ Vector2 positionToVector(int position) {
     }
     // If the player's position is in an odd row, count from right to left
     else {
-        playerVector.x = 590 - (35 + (((position - 1) % 10) * 59));
+        playerVector.x = 590 - (25 + (((position - 1) % 10) * 59));
     }
 
     playerVector.y = 600 - 35 - (((position - 1) / 10) * 59);
@@ -60,13 +61,20 @@ Vector2 positionToVector(int position) {
 }
 
 void drawPlayer(int position) {
-    if (position == 0) return;
+    // Player is not on the board yet
+    if (position == 0) {
+        BeginDrawing();
+            DrawTriangle({700 - 10, 506 - 15}, {700, 506 + 10}, {700 + 10, 506 - 15}, BLUE);
+        EndDrawing();
+        return;
+    }
 
+    // Draws the player marker on top of its intended tile
     Vector2 playerVector = positionToVector(position);
     float x = playerVector.x;
     float y = playerVector.y;
 
     BeginDrawing();
-            DrawTriangle({x - 10, y - 15}, {x, y + 10}, {x + 10, y - 15}, BLUE);
+        DrawTriangle({x - 10, y - 15}, {x, y + 10}, {x + 10, y - 15}, BLUE);
     EndDrawing();
 }

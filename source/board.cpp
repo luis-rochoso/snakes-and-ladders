@@ -1,10 +1,9 @@
 #include "board.hpp"
 #include "interface.hpp"
-#include "raylib.h"
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
-
+#include <iostream>
 void Board::init() {
     makeWindow();
 }
@@ -39,9 +38,9 @@ bool Board::climb() {
 }
 
 void Board::render() {
+    drawPlayer(playerPosition);
     drawBoard();
     drawPlayer(playerPosition);
-    
     if (lastDieRoll != 0) {
         std::cout << "\nROLAGEM DO DADO = [" << lastDieRoll << "]\n";
     }
