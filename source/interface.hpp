@@ -40,7 +40,33 @@ void drawBoard() {
                 --tileNumber;     
             }
         }
+    EndDrawing();
+}
 
-        // DrawText(TextFormat("%i", tileNumber), 48, 54, 8, BLACK);
+Vector2 positionToVector(int position) {
+    Vector2 playerVector;
+
+    // If the player's position is in an even row, count from left to right
+    if (((position - 1) / 10) % 2 == 0) {
+        playerVector.x = 35 + (((position - 1) % 10) * 59);
+    }
+    // If the player's position is in an odd row, count from right to left
+    else {
+        playerVector.x = 590 - (35 + (((position - 1) % 10) * 59));
+    }
+
+    playerVector.y = 600 - 35 - (((position - 1) / 10) * 59);
+    return playerVector;
+}
+
+void drawPlayer(int position) {
+    if (position == 0) return;
+
+    Vector2 playerVector = positionToVector(position);
+    float x = playerVector.x;
+    float y = playerVector.y;
+
+    BeginDrawing();
+            DrawTriangle({x - 10, y - 15}, {x, y + 10}, {x + 10, y - 15}, BLUE);
     EndDrawing();
 }

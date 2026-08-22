@@ -20,6 +20,7 @@ public:
 	bool slide();
 	bool climb();
 
+	int getPlayerPosition() {return playerPosition;}
 	bool hasEnded() {return playerPosition == 100;} //!< Game ends when the 100th tile is reached
 
 	Board() {

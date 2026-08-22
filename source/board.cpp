@@ -40,17 +40,19 @@ bool Board::climb() {
 
 void Board::render() {
     drawBoard();
-    // if (lastDieRoll != 0) {
-    //     std::cout << "\nROLAGEM DO DADO = [" << lastDieRoll << "]\n";
-    // }
-    // if (slidDown) {
-    //     std::cout << "Você escorregou para baixo." << std::endl;
-    // }
-    // if (climbedUp) {
-    //     std::cout << "Você subiu a escada." << std::endl;
-    // }
-    // std::cout << "Você está agora no espaço " << playerPosition << std::endl
-    //           << "Aperte [ENTER] para jogar.";
+    drawPlayer(playerPosition);
+    
+    if (lastDieRoll != 0) {
+        std::cout << "\nROLAGEM DO DADO = [" << lastDieRoll << "]\n";
+    }
+    if (slidDown) {
+        std::cout << "Você escorregou para baixo." << std::endl;
+    }
+    if (climbedUp) {
+        std::cout << "Você subiu a escada." << std::endl;
+    }
+    std::cout << "Você está agora no espaço " << playerPosition << std::endl
+              << "Aperte [ENTER] para jogar.";
 }
 
 void Board::play() {
