@@ -10,7 +10,7 @@ void drawBoard() {
     BeginDrawing();
         ClearBackground(BROWN); // Black sidescreen
         DrawRectangle(0, 0, 600, 600, RAYWHITE); // White border
-        DrawRectangle(5, 5, 590, 590, RED); // Red squares
+        DrawRectangle(5, 5, 590, 590, DARKBLUE); // Red squares
 
         // Yellow squares (making a checkerboard pattern)
         for(int x = 5; x < 590; x += 59) {
@@ -64,7 +64,7 @@ void drawPlayer(int position) {
     // Player is not on the board yet
     if (position == 0) {
         BeginDrawing();
-            DrawTriangle({700 - 10, 506 - 15}, {700, 506 + 10}, {700 + 10, 506 - 15}, BLUE);
+            DrawTriangle({700 - 10, 506 - 15}, {700, 506 + 10}, {700 + 10, 506 - 15}, GREEN);
         EndDrawing();
         return;
     }
@@ -75,6 +75,6 @@ void drawPlayer(int position) {
     float y = playerVector.y;
 
     BeginDrawing();
-        DrawTriangle({x - 10, y - 15}, {x, y + 10}, {x + 10, y - 15}, BLUE);
+        DrawTriangle({x - 10, y - 15}, {x, y + 10}, {x + 10, y - 15}, GREEN);
     EndDrawing();
 }
