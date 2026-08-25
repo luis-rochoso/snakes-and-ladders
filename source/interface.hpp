@@ -75,6 +75,7 @@ void drawPlayer(int position) {
     float y = playerVector.y;
 
     BeginDrawing();
-        DrawTriangle({x - 10, y - 15}, {x, y + 10}, {x + 10, y - 15}, GREEN);
+        DrawTriangle({x - 14, y - 17}, {x, y + 14}, {x + 14, y - 17}, BLACK); // Player Outline
+        DrawTriangle({x - 10, y - 15}, {x, y + 10}, {x + 10, y - 15}, GREEN); // Player
     EndDrawing();
 }
