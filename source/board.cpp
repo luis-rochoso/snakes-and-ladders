@@ -51,7 +51,7 @@ bool Board::slide() {
     if (playerPosition == snakeBottom) {return false;}
 
     playerPosition = snakeBottom;
-    lastDieRoll = 0;
+    lastDieRoll = -1;
     return true;
 }
 
@@ -61,7 +61,7 @@ bool Board::climb() {
     if (playerPosition == ladderTop) {return false;}
 
     playerPosition = ladderTop;
-    lastDieRoll = 0;
+    lastDieRoll = -1;
     return true;
 }
 
@@ -77,7 +77,7 @@ void Board::render() {
         drawMessage(slidDown, climbedUp, playerPosition);
         drawPlayer(playerPosition);
     EndDrawing();
-    
+
 }
 
 void Board::play() {

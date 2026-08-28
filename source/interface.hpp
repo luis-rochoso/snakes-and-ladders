@@ -1,8 +1,9 @@
 #include "raylib.h"
 
-static int frameCounter {0};
 const int screenWidth {800};
 const int screenHeight {600};
+static int textAnimationSpeed = 8;
+static int frameCounter {0};
 
 void makeWindow() {
     InitWindow(screenWidth, screenHeight, "Snakes & Ladders");
@@ -12,7 +13,7 @@ void makeWindow() {
 void drawBoard() {
     ClearBackground(BROWN); // Black sidescreen
     DrawRectangle(0, 0, 600, 600, RAYWHITE); // White border
-    DrawRectangle(5, 5, 590, 590, DARKBLUE); // Red squares
+    DrawRectangle(5, 5, 590, 590, DARKBLUE); // Blue squares
 
     // Yellow squares (making a checkerboard pattern)
     for(int x = 5; x < 590; x += 59) {
@@ -86,11 +87,24 @@ void drawDie(int roll) {
     Rectangle textbox;
     
     // Before the first play
-    if (roll == 0) {
+    if (roll < 1) {
+        // Draw the textbox
         textbox = {605, 150, 180, 120};
         DrawRectangleRounded(textbox, 0.25, 1, LIGHTGRAY);
         DrawRectangleRoundedLinesEx(textbox, 0.25, 1, 2.0, WHITE);
-        DrawText("   Aperte\n [ESPAÇO]\npara jogar.", 610, 160, 30, BLACK);
+
+        // Draw the text
+        const char* playMessage = "   Aperte\n [ESPAÇO]\npara jogar.";
+
+        if (roll == 0) { // It is animated in the first turn
+            DrawText(TextSubtext(playMessage, 0, (frameCounter * textAnimationSpeed) / 10),
+                                 610, 160, 30, BLACK);
+        }
+
+        else { // After sliding or climbing, it is drawn all at once
+            DrawText(playMessage, 610, 160, 30, BLACK);
+        }
+        
         return;
     }
 
@@ -112,8 +126,8 @@ void drawDie(int roll) {
         break;
     
     case 2:
-        DrawCircle(dieCenter.x - 20, dieCenter.y, 10, BLUE); // Left Circle
-        DrawCircle(dieCenter.x + 20, dieCenter.y, 10, BLUE); // Right Circle 
+        DrawCircle(dieCenter.x - 30, dieCenter.y, 10, BLUE); // Left Circle
+        DrawCircle(dieCenter.x + 30, dieCenter.y, 10, BLUE); // Right Circle 
         break;
 
     case 3:
@@ -165,7 +179,6 @@ void drawDie(int roll) {
 }
 
 void drawMessage (bool &slidDown, bool &climbedUp, int playerPosition) {
-    int textAnimationSpeed = 8;
     Rectangle textbox = {605, 330, 190, 60};
 
     if (slidDown) {
