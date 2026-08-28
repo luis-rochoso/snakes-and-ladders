@@ -9,9 +9,8 @@ int main()
 	while(!game.hasEnded() and !WindowShouldClose()) {
 		game.render();
 		game.play();
-		if (game.hasPlayed()) {game.update();}
+		game.update();
 	}
-
 
 	game.shutdown();
 

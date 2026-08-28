@@ -23,7 +23,6 @@ public:
 
 	int getPlayerPosition() {return playerPosition;}
 	bool hasEnded() {return playerPosition == 100;} //!< Game ends when the 100th tile is reached
-	bool hasPlayed() {return moved;}
 	bool willSlide() {return boardTiles[playerPosition].getSnake() != playerPosition;}
 	bool willClimb() {return boardTiles[playerPosition].getLadder() != playerPosition;}
 

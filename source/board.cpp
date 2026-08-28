@@ -12,12 +12,14 @@ void Board::init() {
 }
 
 void Board::shutdown() {
+    // Draws the end screen
     while (!WindowShouldClose()) {
         BeginDrawing();
             ClearBackground(BROWN);
             DrawText("VOCÊ VENCEU!\nAperte [ESC] para\nfechar o jogo.", 150, 250, 50, RAYWHITE);
         EndDrawing();
     }
+
     CloseWindow();
 }
 
@@ -75,6 +77,7 @@ void Board::render() {
         drawMessage(slidDown, climbedUp, playerPosition);
         drawPlayer(playerPosition);
     EndDrawing();
+    
 }
 
 void Board::play() {
@@ -86,10 +89,18 @@ void Board::play() {
 }
 
 void Board::update() {
-    // Makes sure the sliding/climbing message disappears after 1 move
-    slidDown = false;
-    climbedUp = false;
+    
+    // Counts the frames since last movement
+    ++frameCounter;
+    if (IsKeyPressed(KEY_SPACE)) {
+        frameCounter = 0;
+    }
 
-    moved = false;
-    return;
+    if (moved) {
+        // Makes sure the sliding/climbing message disappears after 1 move
+        slidDown = false;
+        climbedUp = false;
+        moved = false;
+    }
+
 }

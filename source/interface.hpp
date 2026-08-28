@@ -1,8 +1,11 @@
 #include "raylib.h"
-#include <iostream>
+
+static int frameCounter {0};
+const int screenWidth {800};
+const int screenHeight {600};
 
 void makeWindow() {
-    InitWindow(800, 600, "Snakes & Ladders");
+    InitWindow(screenWidth, screenHeight, "Snakes & Ladders");
     SetTargetFPS(30);
 }
 
@@ -162,17 +165,28 @@ void drawDie(int roll) {
 }
 
 void drawMessage (bool &slidDown, bool &climbedUp, int playerPosition) {
+    int textAnimationSpeed = 8;
     Rectangle textbox = {605, 330, 190, 60};
 
     if (slidDown) {
+        // Draw the textbox
         DrawRectangleRounded(textbox, 0.25, 1, LIGHTGRAY);
         DrawRectangleRoundedLinesEx(textbox, 0.25, 1, 2.0, WHITE);
-        DrawText("Você escorregou\n     para baixo.", 610, 340, 20, BLACK);
+
+        // Draw the text animation
+        const char* slideMessage = "Você escorregou\n     para baixo.";
+        DrawText(TextSubtext(slideMessage, 0, (frameCounter * textAnimationSpeed) / 10),
+                             610, 340, 20, BLACK);
     }
     else if (climbedUp) {
+        // Draw the textbox
         DrawRectangleRounded(textbox, 0.25, 1, LIGHTGRAY);
         DrawRectangleRoundedLinesEx(textbox, 0.25, 1, 2.0, WHITE);
-        DrawText("Você subiu a\n    escada.", 635, 340, 20, BLACK);
+
+        // Draw the text animation
+        const char * climbMessage = "Você subiu a\n    escada.";
+        DrawText(TextSubtext(climbMessage, 0, (frameCounter * textAnimationSpeed) / 10),
+                             635, 340, 20, BLACK);
     }
     
     textbox = {630, 400, 140, 150};
