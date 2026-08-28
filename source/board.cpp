@@ -38,7 +38,7 @@ bool Board::climb() {
 }
 
 void Board::render() {
-    
+
     BeginDrawing();
         drawPlayer(playerPosition);
         drawBoard();
@@ -59,12 +59,13 @@ void Board::render() {
 }
 
 void Board::play() {
-    std::string line;
-    std::getline(std::cin, line);
 
-    move();
-    slidDown = slide();
-    climbedUp = climb();
+    if (IsKeyPressed(KEY_SPACE)) {
+        move();
+        slidDown = slide();
+        climbedUp = climb();
+    }
+    
 }
 
 void Board::update() {
