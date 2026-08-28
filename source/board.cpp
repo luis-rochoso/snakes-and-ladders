@@ -1,9 +1,8 @@
 #include "board.hpp"
 #include "interface.hpp"
-#include <iostream>
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
+
 void Board::init() {
     makeWindow();
 }
@@ -19,10 +18,21 @@ void Board::shutdown() {
 }
 
 void Board::move() {
+    if (willSlide() and IsKeyPressed(KEY_SPACE)) {
+        slidDown = slide();
+        return;
+    }
+    if (willClimb() and IsKeyPressed(KEY_SPACE)) {
+        climbedUp = climb();
+        return;
+    }
+
     lastDieRoll = (rand() % (6)) + 1;
 
     playerPosition += lastDieRoll;
     if (100 < playerPosition) {playerPosition = 100;}
+
+    moved = true;
 }
 
 bool Board::slide() {
@@ -31,6 +41,7 @@ bool Board::slide() {
     if (playerPosition == snakeBottom) {return false;}
 
     playerPosition = snakeBottom;
+    lastDieRoll = 0;
     return true;
 }
 
@@ -40,43 +51,34 @@ bool Board::climb() {
     if (playerPosition == ladderTop) {return false;}
 
     playerPosition = ladderTop;
+    lastDieRoll = 0;
     return true;
 }
 
 void Board::render() {
 
+    static Texture2D snakesLadders = LoadTexture("assets/snakesLaddersIcons.png");
+
     BeginDrawing();
         drawBoard();
+        renderSnakesAndLadders(snakesLadders);
         drawDie(lastDieRoll);
         drawMessage(slidDown, climbedUp, playerPosition);
         drawPlayer(playerPosition);
     EndDrawing();
-
-    if (lastDieRoll != 0) {
-        std::cout << "\nROLAGEM DO DADO = [" << lastDieRoll << "]\n";
-    }
-    if (slidDown) {
-        std::cout << "Você escorregou para baixo." << std::endl;
-    }
-    if (climbedUp) {
-        std::cout << "Você subiu a escada." << std::endl;
-    }
-    std::cout << "Você está agora no espaço " << playerPosition << std::endl
-              << "Aperte [ENTER] para jogar.";
 }
 
 void Board::play() {
 
     if (IsKeyPressed(KEY_SPACE)) {
         move();
-        moved = true;
     }
 
 }
 
 void Board::update() {
-    slidDown = slide(); // If the current tile has a snake, slide it down
-    climbedUp = climb(); // If the current tile has a ladder, climb it up
+    slidDown = false; // If the current tile has a snake, slide it down
+    climbedUp = false; // If the current tile has a ladder, climb it up
     moved = false;
     return;
 }
