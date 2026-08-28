@@ -41,6 +41,7 @@ void Board::render() {
 
     BeginDrawing();
         drawBoard();
+        drawDie(lastDieRoll);
         drawPlayer(playerPosition);
     EndDrawing();
 

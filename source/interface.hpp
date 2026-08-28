@@ -73,3 +73,70 @@ void drawPlayer(int position) {
     DrawTriangle({x - 14, y - 17}, {x, y + 14}, {x + 14, y - 17}, BLACK); // Player Outline
     DrawTriangle({x - 10, y - 15}, {x, y + 10}, {x + 10, y - 15}, GREEN); // Player
 }
+
+void drawDie(int roll) {
+
+    DrawText("Última jogada: ", 635, 160, 20, BLACK);
+    Rectangle die = {640, 200, 120, 120};
+    DrawRectangleRounded(die, 0.25, 1, RAYWHITE);
+
+    Vector2 dieCenter = {640 + 60, 200 + 60};
+
+    switch (roll)
+    {
+    case 1:
+        DrawCircle(dieCenter.x, dieCenter.y, 20, RED);
+        break;
+    
+    case 2:
+        DrawCircle(dieCenter.x - 20, dieCenter.y, 10, BLUE); // Left Circle
+        DrawCircle(dieCenter.x + 20, dieCenter.y, 10, BLUE); // Right Circle 
+        break;
+
+    case 3:
+        DrawCircle(dieCenter.x, dieCenter.y, 10, RED);
+        DrawCircle(dieCenter.x + 30, dieCenter.y - 30, 10, RED);
+        DrawCircle(dieCenter.x - 30, dieCenter.y + 30, 10, RED);
+        break;
+    
+    case 4:
+        // Upper Balls
+        DrawCircle(dieCenter.x - 30, dieCenter.y - 30, 10, BLUE);
+        DrawCircle(dieCenter.x + 30, dieCenter.y - 30, 10, BLUE);
+
+        // Lower Balls
+        DrawCircle(dieCenter.x - 30, dieCenter.y + 30, 10, BLUE);
+        DrawCircle(dieCenter.x + 30, dieCenter.y + 30, 10, BLUE);
+        break;
+    
+    case 5:
+        // Upper balls
+        DrawCircle(dieCenter.x - 30, dieCenter.y - 30, 10, RED);
+        DrawCircle(dieCenter.x + 30, dieCenter.y - 30, 10, RED);
+
+        // Middle Ball
+        DrawCircle(dieCenter.x, dieCenter.y, 10, RED);
+
+        // Lower Balls
+        DrawCircle(dieCenter.x - 30, dieCenter.y + 30, 10, RED);
+        DrawCircle(dieCenter.x + 30, dieCenter.y + 30, 10, RED);
+        break;
+    
+    case 6:
+        // Upper balls
+        DrawCircle(dieCenter.x - 30, dieCenter.y - 30, 10, BLUE);
+        DrawCircle(dieCenter.x + 30, dieCenter.y - 30, 10, BLUE);
+
+        // Middle Balls
+        DrawCircle(dieCenter.x - 30, dieCenter.y, 10, BLUE);
+        DrawCircle(dieCenter.x + 30, dieCenter.y, 10, BLUE);
+
+        // Lower balls
+        DrawCircle(dieCenter.x - 30, dieCenter.y + 30, 10, BLUE);
+        DrawCircle(dieCenter.x + 30, dieCenter.y + 30, 10, BLUE);
+        break;
+
+    default:
+        break;
+    }
+}

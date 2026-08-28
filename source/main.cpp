@@ -11,7 +11,7 @@ int main()
 	while(!game.hasEnded() and !WindowShouldClose()) {
 		game.render();
 		game.play();
-		game.update();
+		// game.update();
 	}
 
 	game.shutdown();
