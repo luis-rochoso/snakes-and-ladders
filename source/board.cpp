@@ -1,7 +1,22 @@
 #include "board.hpp"
+#include "interface.hpp"
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
+void Board::init() {
+    makeWindow();
+}
+
+void Board::shutdown() {
+    while (!WindowShouldClose()) {
+        BeginDrawing();
+            ClearBackground(BROWN);
+            DrawText("VOCÊ VENCEU!\nAperte [ESC] para\nfechar o jogo.", 150, 250, 50, RAYWHITE);
+        EndDrawing();
+    }
+    CloseWindow();
+}
 
 void Board::move() {
     lastDieRoll = (rand() % (6)) + 1;
@@ -29,6 +44,14 @@ bool Board::climb() {
 }
 
 void Board::render() {
+
+    BeginDrawing();
+        drawBoard();
+        drawDie(lastDieRoll);
+        drawMessage(slidDown, climbedUp, playerPosition);
+        drawPlayer(playerPosition);
+    EndDrawing();
+
     if (lastDieRoll != 0) {
         std::cout << "\nROLAGEM DO DADO = [" << lastDieRoll << "]\n";
     }
@@ -43,14 +66,17 @@ void Board::render() {
 }
 
 void Board::play() {
-    std::string line;
-    std::getline(std::cin, line);
 
-    move();
-    slidDown = slide();
-    climbedUp = climb();
+    if (IsKeyPressed(KEY_SPACE)) {
+        move();
+        moved = true;
+    }
+
 }
 
 void Board::update() {
+    slidDown = slide(); // If the current tile has a snake, slide it down
+    climbedUp = climb(); // If the current tile has a ladder, climb it up
+    moved = false;
     return;
 }
