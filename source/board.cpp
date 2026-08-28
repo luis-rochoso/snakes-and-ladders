@@ -4,6 +4,10 @@
 #include <ctime>
 
 void Board::init() {
+    // Start the random seed
+    srand(time(0));
+
+    // Build the game window
     makeWindow();
 }
 
@@ -18,21 +22,25 @@ void Board::shutdown() {
 }
 
 void Board::move() {
+    // Makes the next move be sliding down a snake if the player is on top of one
     if (willSlide() and IsKeyPressed(KEY_SPACE)) {
         slidDown = slide();
         return;
     }
+    // Makes the next move be climbing up a ladder if the player is at the bottom of one
     if (willClimb() and IsKeyPressed(KEY_SPACE)) {
         climbedUp = climb();
         return;
     }
 
+
+    // Default random movement
     lastDieRoll = (rand() % (6)) + 1;
 
     playerPosition += lastDieRoll;
-    if (100 < playerPosition) {playerPosition = 100;}
+    if (100 < playerPosition) {playerPosition = 100;} // Going over tile 100 still wins the game
 
-    moved = true;
+    moved = true; // Flag for the update function to be called
 }
 
 bool Board::slide() {
@@ -57,6 +65,7 @@ bool Board::climb() {
 
 void Board::render() {
 
+    // Static so it will only be loaded once
     static Texture2D snakesLadders = LoadTexture("assets/snakesLaddersIcons.png");
 
     BeginDrawing();
@@ -77,8 +86,10 @@ void Board::play() {
 }
 
 void Board::update() {
-    slidDown = false; // If the current tile has a snake, slide it down
-    climbedUp = false; // If the current tile has a ladder, climb it up
+    // Makes sure the sliding/climbing message disappears after 1 move
+    slidDown = false;
+    climbedUp = false;
+
     moved = false;
     return;
 }
