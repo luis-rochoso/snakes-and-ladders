@@ -40,7 +40,6 @@ bool Board::climb() {
 void Board::render() {
 
     BeginDrawing();
-        drawPlayer(playerPosition);
         drawBoard();
         drawPlayer(playerPosition);
     EndDrawing();
@@ -65,7 +64,7 @@ void Board::play() {
         slidDown = slide();
         climbedUp = climb();
     }
-    
+
 }
 
 void Board::update() {
