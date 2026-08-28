@@ -38,9 +38,13 @@ bool Board::climb() {
 }
 
 void Board::render() {
-    drawPlayer(playerPosition);
-    drawBoard();
-    drawPlayer(playerPosition);
+    
+    BeginDrawing();
+        drawPlayer(playerPosition);
+        drawBoard();
+        drawPlayer(playerPosition);
+    EndDrawing();
+
     if (lastDieRoll != 0) {
         std::cout << "\nROLAGEM DO DADO = [" << lastDieRoll << "]\n";
     }

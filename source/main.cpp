@@ -8,7 +8,7 @@ int main()
 	Board game;
 	game.init();
 
-	while(not game.hasEnded() and (not WindowShouldClose())) {
+	while(!game.hasEnded() and !WindowShouldClose()) {
 		game.render();
 		game.play();
 		game.update();
