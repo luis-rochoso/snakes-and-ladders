@@ -42,6 +42,7 @@ void Board::render() {
     BeginDrawing();
         drawBoard();
         drawDie(lastDieRoll);
+        drawMessage(slidDown, climbedUp, playerPosition);
         drawPlayer(playerPosition);
     EndDrawing();
 
@@ -62,12 +63,14 @@ void Board::play() {
 
     if (IsKeyPressed(KEY_SPACE)) {
         move();
-        slidDown = slide();
-        climbedUp = climb();
+        moved = true;
     }
 
 }
 
 void Board::update() {
+    slidDown = slide(); // If the current tile has a snake, slide it down
+    climbedUp = climb(); // If the current tile has a ladder, climb it up
+    moved = false;
     return;
 }

@@ -59,9 +59,10 @@ Vector2 positionToVector(int position) {
 }
 
 void drawPlayer(int position) {
-    // Player is not on the board yet
+    // Player is not on the board yet, draw icon on the sidebar
     if (position == 0) {
-        DrawTriangle({700 - 10, 506 - 15}, {700, 506 + 10}, {700 + 10, 506 - 15}, GREEN);
+        DrawTriangle({690 - 4, 491 - 2}, {700, 516 + 4}, {710 + 4, 491 - 2}, BLACK);
+        DrawTriangle({690, 491}, {700, 516}, {710, 491}, GREEN);
         return;
     }
 
@@ -75,12 +76,27 @@ void drawPlayer(int position) {
 }
 
 void drawDie(int roll) {
+    Rectangle textbox;
+    
+    // Before the first play
+    if (roll == 0) {
+        textbox = {605, 150, 180, 120};
+        DrawRectangleRounded(textbox, 0.25, 1, LIGHTGRAY);
+        DrawRectangleRoundedLinesEx(textbox, 0.25, 1, 2.0, WHITE);
+        DrawText("   Aperte\n [ESPAÇO]\npara jogar.", 610, 160, 30, BLACK);
+        return;
+    }
 
+    textbox = {630, 155, 145, 30};
+    DrawRectangleRounded(textbox, 0.25, 1, LIGHTGRAY);
+    DrawRectangleRoundedLinesEx(textbox, 0.25, 1, 2.0, WHITE);
+    
     DrawText("Última jogada: ", 635, 160, 20, BLACK);
+
     Rectangle die = {640, 200, 120, 120};
     DrawRectangleRounded(die, 0.25, 1, RAYWHITE);
 
-    Vector2 dieCenter = {640 + 60, 200 + 60};
+    Vector2 dieCenter = {700, 260};
 
     switch (roll)
     {
@@ -139,4 +155,25 @@ void drawDie(int roll) {
     default:
         break;
     }
+}
+
+void drawMessage (bool slidDown, bool climbedUp, int playerPosition) {
+    Rectangle textbox = {605, 330, 190, 60};
+
+    if (slidDown) {
+        DrawRectangleRounded(textbox, 0.25, 1, LIGHTGRAY);
+        DrawRectangleRoundedLinesEx(textbox, 0.25, 1, 2.0, WHITE);
+        DrawText("Você escorregou\n     para baixo.", 610, 340, 20, BLACK);
+    }
+    else if (climbedUp) {
+        DrawRectangleRounded(textbox, 0.25, 1, LIGHTGRAY);
+        DrawRectangleRoundedLinesEx(textbox, 0.25, 1, 2.0, WHITE);
+        DrawText("Você subiu a\n    escada.", 635, 340, 20, BLACK);
+    }
+    
+    textbox = {630, 400, 140, 150};
+
+    DrawRectangleRounded(textbox, 0.25, 1, LIGHTGRAY);
+    DrawRectangleRoundedLinesEx(textbox, 0.25, 1, 4.0, WHITE);
+    DrawText(TextFormat("Você está\nagora no\nespaço %i.", playerPosition), 650, 420, 20, BLACK);
 }

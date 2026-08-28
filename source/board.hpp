@@ -7,6 +7,7 @@ class Board {
 	int lastDieRoll = 0;
 	bool slidDown = false;
 	bool climbedUp = false;
+	bool moved = false;
 
 public:
 	void init();
@@ -22,6 +23,7 @@ public:
 
 	int getPlayerPosition() {return playerPosition;}
 	bool hasEnded() {return playerPosition == 100;} //!< Game ends when the 100th tile is reached
+	bool hasPlayed() {return moved;}
 
 	Board() {
 		for (int i = 0; i < 101; ++i) {
