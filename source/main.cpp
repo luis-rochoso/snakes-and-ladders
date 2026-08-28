@@ -14,6 +14,7 @@ int main()
 		if (game.hasPlayed()) {game.update();}
 	}
 
+	
 	game.shutdown();
 	std::cout << "Você venceu!" << std::endl;
 

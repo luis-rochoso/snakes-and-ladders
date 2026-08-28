@@ -9,6 +9,12 @@ void Board::init() {
 }
 
 void Board::shutdown() {
+    while (!WindowShouldClose()) {
+        BeginDrawing();
+            ClearBackground(BROWN);
+            DrawText("VOCÊ VENCEU!\nAperte [ESC] para\nfechar o jogo.", 150, 250, 50, RAYWHITE);
+        EndDrawing();
+    }
     CloseWindow();
 }
 
