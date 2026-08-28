@@ -42,6 +42,10 @@ void drawBoard() {
     }
 }
 
+void renderSnakesAndLadders(Texture2D &snakesLadders) {
+    DrawTexture(snakesLadders, 0, 0, WHITE);
+}
+
 Vector2 positionToVector(int position) {
     Vector2 playerVector;
 
@@ -157,7 +161,7 @@ void drawDie(int roll) {
     }
 }
 
-void drawMessage (bool slidDown, bool climbedUp, int playerPosition) {
+void drawMessage (bool &slidDown, bool &climbedUp, int playerPosition) {
     Rectangle textbox = {605, 330, 190, 60};
 
     if (slidDown) {
