@@ -69,8 +69,8 @@ Vector2 positionToVector(int position) {
 void drawPlayer(int position) {
     // Player is not on the board yet, draw icon on the sidebar
     if (position == 0) {
-        DrawTriangle({690 - 4, 491 - 2}, {700, 516 + 4}, {710 + 4, 491 - 2}, BLACK);
-        DrawTriangle({690, 491}, {700, 516}, {710, 491}, GREEN);
+        DrawTriangle({690 - 4, 491 - 2}, {700, 516 + 4}, {710 + 4, 491 - 2}, GREEN);
+        DrawTriangleLines({690 - 4, 491 - 2}, {700, 516 + 4}, {710 + 4, 491 - 2}, BLACK);
         return;
     }
 
@@ -79,8 +79,8 @@ void drawPlayer(int position) {
     float x = playerVector.x;
     float y = playerVector.y;
 
-    DrawTriangle({x - 14, y - 17}, {x, y + 14}, {x + 14, y - 17}, BLACK); // Player Outline
-    DrawTriangle({x - 10, y - 15}, {x, y + 10}, {x + 10, y - 15}, GREEN); // Player
+    DrawTriangle({x - 14, y - 17}, {x, y + 14}, {x + 14, y - 17}, GREEN); // Player
+    DrawTriangleLines({x - 14, y - 17}, {x, y + 14}, {x + 14, y - 17}, BLACK); // Player Outline
 }
 
 void drawDie(int roll) {
