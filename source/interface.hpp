@@ -66,16 +66,57 @@ Vector2 positionToVector(int position) {
     return playerVector;
 }
 
+Vector2 animateMovement(Vector2 &begin, Vector2 end) {
+
+    // Treating movement along the X axis
+    if (begin.x != end.x) {
+        
+        if (begin.x < end.x) {
+
+            begin.x += (end.x - begin.x) / 10;
+            if (begin.x > end.x) {begin.x = end.x;}
+
+        }
+
+        else {
+            begin.x -= (begin.x - end.x) / 10;
+            if (begin.x < end.x) {begin.x = end.x;}
+        }
+    }
+
+    // Treating movement along the Y axis
+    if (begin.y != end.y) {
+        
+        if (begin.y < end.y) {
+
+            begin.y += (end.y - begin.y) / 10;
+            if (begin.y > end.y) {begin.y = end.y;}
+
+        }
+
+        else {
+            begin.y -= (begin.y - end.y) / 10;
+            if (begin.y < end.y) {begin.y = end.y;}
+        }
+    }
+    return begin;
+}
+
 void drawPlayer(int position) {
+    static Vector2 playerBegin;
+
     // Player is not on the board yet, draw icon on the sidebar
     if (position == 0) {
+        playerBegin = {-20, 559}; // Sets starting point for animation;
         DrawTriangle({690 - 4, 491 - 2}, {700, 516 + 4}, {710 + 4, 491 - 2}, GREEN);
         DrawTriangleLines({690 - 4, 491 - 2}, {700, 516 + 4}, {710 + 4, 491 - 2}, BLACK);
         return;
     }
 
     // Draws the player marker on top of its intended tile
-    Vector2 playerVector = positionToVector(position);
+    Vector2 playerEnd = positionToVector(position);
+
+    Vector2 playerVector = animateMovement(playerBegin, playerEnd);
     float x = playerVector.x;
     float y = playerVector.y;
 
