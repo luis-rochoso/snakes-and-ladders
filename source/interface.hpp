@@ -70,33 +70,37 @@ Vector2 animateMovement(Vector2 &begin, Vector2 end) {
 
     // Treating movement along the X axis
     if (begin.x != end.x) {
-        
+        // Moving to the right
         if (begin.x < end.x) {
 
             begin.x += (end.x - begin.x) / 10;
             if (begin.x > end.x) {begin.x = end.x;}
 
         }
-
+        // Moving to the left
         else {
+
             begin.x -= (begin.x - end.x) / 10;
             if (begin.x < end.x) {begin.x = end.x;}
+
         }
     }
 
     // Treating movement along the Y axis
     if (begin.y != end.y) {
-        
+        // Moving down
         if (begin.y < end.y) {
 
             begin.y += (end.y - begin.y) / 10;
             if (begin.y > end.y) {begin.y = end.y;}
 
         }
-
+        // Moving up
         else {
+
             begin.y -= (begin.y - end.y) / 10;
             if (begin.y < end.y) {begin.y = end.y;}
+            
         }
     }
     return begin;
