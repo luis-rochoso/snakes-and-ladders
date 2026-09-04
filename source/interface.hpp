@@ -1,12 +1,13 @@
 #include "raylib.h"
 
-const int screenWidth {800};
-const int screenHeight {600};
-static int textAnimationSpeed = 8;
+const int SCREEN_WIDTH {800};
+const int SCREEN_HEIGHT {600};
+const int TEXT_ANIMATION_SPEED {8};
 static int frameCounter {0};
+static bool dieStoppedRolling {true};
 
 void makeWindow() {
-    InitWindow(screenWidth, screenHeight, "Snakes & Ladders");
+    InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Snakes & Ladders");
     SetTargetFPS(30);
 }
 
@@ -128,7 +129,7 @@ void drawPlayer(int position) {
     DrawTriangleLines({x - 14, y - 17}, {x, y + 14}, {x + 14, y - 17}, BLACK); // Player Outline
 }
 
-void drawDie(int roll) {
+void drawDieResult(int roll) {
     Rectangle textbox;
     
     // Before the first play
@@ -142,7 +143,7 @@ void drawDie(int roll) {
         const char* playMessage = "   Aperte\n [ESPAÇO]\npara jogar.";
 
         if (roll == 0) { // It is animated in the first turn
-            DrawText(TextSubtext(playMessage, 0, (frameCounter * textAnimationSpeed) / 10),
+            DrawText(TextSubtext(playMessage, 0, (frameCounter * TEXT_ANIMATION_SPEED) / 10),
                                  610, 160, 30, BLACK);
         }
 
@@ -223,6 +224,32 @@ void drawDie(int roll) {
     }
 }
 
+bool drawDieRolling() {
+    static float dieRotation;
+
+    if (dieStoppedRolling) {
+        dieRotation = 0.0;
+        dieStoppedRolling = false;
+    }
+    else {
+        dieRotation += 10.0;
+    }
+    
+
+    Vector2 dieCenter = {700, 260};
+    float dieRadius = 80.0;
+
+    DrawPoly(dieCenter, 4, dieRadius, dieRotation, RAYWHITE);
+
+    // Die stops rolling after 120 frames
+    if (dieRotation >= 240.0) {
+        dieStoppedRolling = true;
+        return false;
+    }
+
+    return true;
+}
+
 void drawMessage (bool &slidDown, bool &climbedUp, int playerPosition) {
     Rectangle textbox = {605, 330, 190, 60};
 
@@ -233,7 +260,7 @@ void drawMessage (bool &slidDown, bool &climbedUp, int playerPosition) {
 
         // Draw the text animation
         const char* slideMessage = "Você escorregou\n     para baixo.";
-        DrawText(TextSubtext(slideMessage, 0, (frameCounter * textAnimationSpeed) / 10),
+        DrawText(TextSubtext(slideMessage, 0, (frameCounter * TEXT_ANIMATION_SPEED) / 10),
                              610, 340, 20, BLACK);
     }
     else if (climbedUp) {
@@ -243,7 +270,7 @@ void drawMessage (bool &slidDown, bool &climbedUp, int playerPosition) {
 
         // Draw the text animation
         const char * climbMessage = "Você subiu a\n    escada.";
-        DrawText(TextSubtext(climbMessage, 0, (frameCounter * textAnimationSpeed) / 10),
+        DrawText(TextSubtext(climbMessage, 0, (frameCounter * TEXT_ANIMATION_SPEED) / 10),
                              635, 340, 20, BLACK);
     }
     

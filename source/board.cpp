@@ -38,10 +38,12 @@ void Board::move() {
 
     // Default random movement
     lastDieRoll = (rand() % (6)) + 1;
-
+    
+    prevPlayerPosition = playerPosition;
     playerPosition += lastDieRoll;
     if (100 < playerPosition) {playerPosition = 100;} // Going over tile 100 still wins the game
 
+    dieIsRolling = true; // Flag for the dice roll animation to be called
     moved = true; // Flag for the update function to be called
 }
 
@@ -73,9 +75,19 @@ void Board::render() {
     BeginDrawing();
         drawBoard();
         renderSnakesAndLadders(snakesLadders);
-        drawDie(lastDieRoll);
-        drawMessage(slidDown, climbedUp, playerPosition);
-        drawPlayer(playerPosition);
+
+        if (dieIsRolling) {
+            dieIsRolling = drawDieRolling();
+            drawPlayer(prevPlayerPosition);
+            drawMessage(slidDown, climbedUp, prevPlayerPosition);
+        }
+
+        else {
+            drawDieResult(lastDieRoll);
+            drawMessage(slidDown, climbedUp, playerPosition);
+            drawPlayer(playerPosition);
+        }
+        
     EndDrawing();
 
 }

@@ -2,9 +2,12 @@
 
 class Board {
 	int playerPosition = 0;
+	int prevPlayerPosition = 0;
 	Tile boardTiles[101];
 
 	int lastDieRoll = 0;
+	bool dieIsRolling = false;
+
 	bool slidDown = false;
 	bool climbedUp = false;
 	bool moved = false;
