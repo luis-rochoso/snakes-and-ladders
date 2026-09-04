@@ -2,15 +2,22 @@
 
 const int SCREEN_WIDTH {800};
 const int SCREEN_HEIGHT {600};
+const int FPS {30};
 const int TEXT_ANIMATION_SPEED {8};
 static int frameCounter {0};
 static bool dieStoppedRolling {true};
 
+/**
+ * Creates the program's window.
+ */
 void makeWindow() {
     InitWindow(SCREEN_WIDTH, SCREEN_HEIGHT, "Snakes & Ladders");
-    SetTargetFPS(30);
+    SetTargetFPS(FPS);
 }
 
+/**
+ * Draws the board's tiles, border and numbers
+ */
 void drawBoard() {
     ClearBackground(BROWN); // Black sidescreen
     DrawRectangle(0, 0, 600, 600, RAYWHITE); // White border
@@ -47,10 +54,19 @@ void drawBoard() {
     }
 }
 
+/**
+ * Renders the snakes and ladders image on top of the board
+ * @param snakesLadders Image to be loaded
+ */
 void renderSnakesAndLadders(Texture2D &snakesLadders) {
     DrawTexture(snakesLadders, 0, 0, WHITE);
 }
 
+/**
+ * Converts a tile number into a vector for the canvas
+ * @param position Number of a tile
+ * @return Canvas position vector
+ */
 Vector2 positionToVector(int position) {
     Vector2 playerVector;
 
@@ -67,6 +83,12 @@ Vector2 positionToVector(int position) {
     return playerVector;
 }
 
+/**
+ * Animates the player icon moving in a straight line between two tiles
+ * @param begin Starting point for the movement
+ * @param end Ending point for the movement
+ * @return Position to be drawn
+ */
 Vector2 animateMovement(Vector2 &begin, Vector2 end) {
 
     // Treating movement along the X axis
@@ -107,6 +129,10 @@ Vector2 animateMovement(Vector2 &begin, Vector2 end) {
     return begin;
 }
 
+/**
+ * Draws the player icon
+ * @param position Player's tile number where it should be drawn
+ */
 void drawPlayer(int position) {
     static Vector2 playerBegin;
 
@@ -129,6 +155,10 @@ void drawPlayer(int position) {
     DrawTriangleLines({x - 14, y - 17}, {x, y + 14}, {x + 14, y - 17}, BLACK); // Player Outline
 }
 
+/**
+ * Renders the result of the roll on the screen
+ * @param roll Number to be drawn on the die's face
+ */
 void drawDieResult(int roll) {
     Rectangle textbox;
     
@@ -224,6 +254,10 @@ void drawDieResult(int roll) {
     }
 }
 
+/**
+ * Renders an animation of the die spinning
+ * @return False if the animation has ended, True if not
+ */
 bool drawDieRolling() {
     static float dieRotation;
 
@@ -250,6 +284,12 @@ bool drawDieRolling() {
     return true;
 }
 
+/**
+ * Renders the system message on the screen
+ * @param slidDown Checks whether the last movement was sliding down a snake
+ * @param climbedUp Checks whether the last movement was climbing up a ladder
+ * @param playerPosition The player's tile number
+ */
 void drawMessage (bool &slidDown, bool &climbedUp, int playerPosition) {
     Rectangle textbox = {605, 330, 190, 60};
 
