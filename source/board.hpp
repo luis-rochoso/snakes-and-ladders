@@ -1,16 +1,16 @@
 #include "tile.hpp"
 
 class Board {
-	int playerPosition = 0;
-	int prevPlayerPosition = 0;
-	Tile boardTiles[101];
+	int playerPosition = 0; //!< Player's current tile number
+	int prevPlayerPosition = 0; //!< Player's previous tile nummber
+	Tile boardTiles[101]; //!< Container of the board's tiles
 
-	int lastDieRoll = 0;
-	bool dieIsRolling = false;
+	int lastDieRoll = 0; //!< Last result of a die roll
+	bool dieIsRolling = false; //!< Checks whether the die rolling animation is ongoing
 
-	bool slidDown = false;
-	bool climbedUp = false;
-	bool moved = false;
+	bool slidDown = false; //!< Checks whether the last movement was sliding down
+	bool climbedUp = false; //!< Checks whether the last movement was climbing up
+	bool moved = false; //!< Checks if a movement has occurred in the current game loop
 
 public:
 	void init();
@@ -24,11 +24,13 @@ public:
 	bool slide();
 	bool climb();
 
-	int getPlayerPosition() {return playerPosition;}
 	bool hasEnded() {return playerPosition == 100;} //!< Game ends when the 100th tile is reached
 	bool willSlide() {return boardTiles[playerPosition].getSnake() != playerPosition;}
 	bool willClimb() {return boardTiles[playerPosition].getLadder() != playerPosition;}
 
+	/**
+	 * Default constructor for a board. Always has the same snakes and ladders
+	 */
 	Board() {
 		for (int i = 0; i < 101; ++i) {
 			switch (i) {

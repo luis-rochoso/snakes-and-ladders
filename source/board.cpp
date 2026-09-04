@@ -3,6 +3,9 @@
 #include <cstdlib>
 #include <ctime>
 
+/**
+ * Prepares the game for initialization
+ */
 void Board::init() {
     // Start the random seed
     srand(time(0));
@@ -11,6 +14,9 @@ void Board::init() {
     makeWindow();
 }
 
+/**
+ * Shows the ending screen and closes the game
+ */
 void Board::shutdown() {
     // Draws the end screen
     while (!WindowShouldClose()) {
@@ -23,6 +29,9 @@ void Board::shutdown() {
     CloseWindow();
 }
 
+/**
+ * Moves the player after a play
+ */
 void Board::move() {
     // Makes the next move be sliding down a snake if the player is on top of one
     if (willSlide() and IsKeyPressed(KEY_SPACE)) {
@@ -47,6 +56,10 @@ void Board::move() {
     moved = true; // Flag for the update function to be called
 }
 
+/**
+ * Slides the player down a snake
+ * @return True if the player slid down, False if not
+ */
 bool Board::slide() {
     int snakeBottom = boardTiles[playerPosition].getSnake();
 
@@ -57,6 +70,10 @@ bool Board::slide() {
     return true;
 }
 
+/**
+ * Moves the player up a ladder
+ * @return True if the player climbed up, False if not
+ */
 bool Board::climb() {
     int ladderTop = boardTiles[playerPosition].getLadder();
 
@@ -67,6 +84,9 @@ bool Board::climb() {
     return true;
 }
 
+/**
+ * Renders all the information in the screen
+ */
 void Board::render() {
 
     // Static so it will only be loaded once
@@ -92,6 +112,9 @@ void Board::render() {
 
 }
 
+/**
+ * Makes a play
+ */
 void Board::play() {
 
     if (IsKeyPressed(KEY_SPACE)) {
@@ -100,6 +123,9 @@ void Board::play() {
 
 }
 
+/**
+ * Updates universal variables
+ */
 void Board::update() {
     
     // Counts the frames since last movement
